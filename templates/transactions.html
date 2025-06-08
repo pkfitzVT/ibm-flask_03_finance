@@ -70,12 +70,28 @@
         <td><strong>{{ total_amount }}</strong></td>
         <td></td>
     </tr>
-</tbody>
+    <tr>
+        <td>
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-success" href="{{ url_for('add_transaction') }}">Add Transaction</a>
+            </div>
+        </td>
+        <td>
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-success" href="{{ url_for('search_transactions') }}">Search Transaction</a>
+            </div>
+        </td>
+        <td>
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-success" href="{{ url_for('get_transactions') }}">Show All Transaction</a>
+            </div>
+        </td>
+
+
+          </tr>
+          </tbody>
         </table>
 
-        <div class="d-flex justify-content-center">
-            <a class="btn btn-success" href="{{ url_for('add_transaction') }}">Add Transaction</a>
-        </div>
     </div>
 </body>
 </html>
