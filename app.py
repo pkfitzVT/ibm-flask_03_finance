@@ -18,7 +18,7 @@ def get_transactions():
     total_amount = sum(t['amount'] for t in transactions)
     return render_template("transactions.html", transactions=transactions, total_amount=total_amount)
 
-# Create operation
+  # Create operation
 @app.route("/add", methods=["GET", "POST"])
 def add_transaction():
     if request.method == 'POST':
@@ -88,6 +88,27 @@ def delete_transaction(transaction_id):
     # Redirect to the transactions list page after deleting the transaction
     return redirect(url_for("get_transactions"))
 
+@app.route("/search", methods=["GET", "POST"])
+def search_transactions():
+    if request.method == "POST":
+        try:
+            min_amount = float(request.form['min_amount'])
+            max_amount = float(request.form['max_amount'])
+
+            # Filter transactions using list comprehension
+            filtered_transactions = [t for t in transactions if min_amount <= t['amount'] <= max_amount]
+
+            # Calculate total of filtered results
+            total_amount = sum(t['amount'] for t in filtered_transactions)
+
+            # Render transactions.html with filtered results
+            return render_template("transactions.html", transactions=filtered_transactions, total_amount=total_amount)
+
+        except (ValueError, KeyError):
+            return "Invalid input. Please check your form fields.", 400
+
+    # If GET request, show empty search form (optional)
+    return render_template("search.html")  # Assuming your search form is here
 
 
 # Run the Flask app
